@@ -3,17 +3,23 @@
     flex-direction: row;
 }
 
+.header h2{
+    font-size: 40px;
+}
+
 .header img{
     width: 100px;
     height: auto;
+    margin-left: 80%;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
+    margin-top: 5%;
 }
 
-table, th, td {
+table, th, td { 
     border: 1px solid black;
 }
   
