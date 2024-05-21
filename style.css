@@ -1,0 +1,32 @@
+.header {
+    display: flex;
+    flex-direction: row;
+}
+
+.header img{
+    width: 100px;
+    height: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+  
+th, td {
+    padding: 8px;
+    text-align: center;
+}
+.details{
+    display: flex;
+    flex-direction: row;
+}
+
+.details label {
+    display: flex;
+    flex-direction: column;
+}

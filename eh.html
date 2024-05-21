@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        
+        <div class="header">
+            <h2 id="storeName">{{ storeName }}</h2>
+            <img src="lib/Logo.png" alt="">
+        </div>
+    
+        <div v-if="showForm" class="paymentForm" id="payment">
+            <form>
+                <label for="name">No. Nota</label>
+                <input type="text" id="no_nota" v-model="receiptData.no_nota"><br><br>
+    
+                <label for="name">Pelanggan</label>
+                <input type="text" id="pelanggan" v-model="receiptData.pelanggan"><br><br>
+    
+                <label for="tanggal">Tanggal</label>
+                <input type="date" id="tanggal" v-model="receiptData.tanggal"><br><br><br>
+            </form>
+        </div>
+
+        <div class="details">
+            <label for="name">Kode Barang</label>
+            <select id="kode_barang" v-model="detailsData.kode_barang">
+                <option value="1">01</option>
+                <option value="2">02</option>
+                <option value="3">03</option>
+            </select><br>
+
+            <label for="name">Nama Barang</label>
+            <input type="text" id="nama_barang" v-model="detailsData.nama_barang"><br>
+
+            <label for="name">Quantity</label>
+            <select id="quantity" v-model="detailsData.quantity">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select><br>
+
+            <button @click="addItem">Add</button>
+
+        </div>
+        <table>
+            <tr>
+                <th>Id Barang</th>
+                <th>Nama Barang</th>
+                <th>Harga Satuan</th>
+                <th>Quantity</th>
+                <th>Jumlah</th>
+                <th>Opsi</th>
+            </tr>
+            <tr v-for="(item, index) in items" :key="index">
+                <td>{{ item.id }}</td>
+                <td>{{ item.nama }}</td>
+                <td>{{ item.harga }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.total }}</td>
+                <td><button @click="removeItem(index)">Remove</button></td>
+            </tr>
+        </table>
+
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                storeName: 'Store Name',
+                showForm: true,
+                receiptData: {
+                    no_nota: '',
+                    pelanggan: '',
+                    tanggal: ''
+                },
+                detailsData: {
+                    kode_barang: '',
+                    nama_barang: '',
+                    quantity: ''
+                },
+                items: [],
+                prices: {
+                    '1': 5000,
+                    '2': 10000,
+                    '3': 15000
+                }
+            },
+            methods: {
+                addItem: function() {
+                    let hargaSatuan = this.prices[this.detailsData.kode_barang];
+                    let jumlah = this.detailsData.quantity * hargaSatuan;
+                    this.items.push({
+                        id: this.detailsData.kode_barang,
+                        nama: this.detailsData.nama_barang,
+                        harga: hargaSatuan,
+                        quantity: this.detailsData.quantity,
+                        total: jumlah
+                    });
+                    this.resetDetailsData();
+                },
+                removeItem: function(index) {
+                    this.items.splice(index, 1);
+                },
+                resetDetailsData: function() {
+                    this.detailsData.kode_barang = '';
+                    this.detailsData.nama_barang = '';
+                    this.detailsData.quantity = '';
+                }
+            }
+        });
+    </script>
+</body>
+</html>
